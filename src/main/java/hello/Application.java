@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.util.List;
 
 @SpringBootApplication
-public class Application implements CommandLineRunner {
+public class Application{
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
 
@@ -19,20 +19,24 @@ public class Application implements CommandLineRunner {
         SpringApplication.run(Application.class, args);
     }
 
-    @Autowired
+/*    @Autowired
     JdbcTemplate jdbcTemplate;
 
     @Override
     public void run(String... strings) throws Exception {
 
-        log.info("Creating Query");
+        log.info("Creating tables");
 
-        //jdbcTemplate.execute("DROP TABLE customers IF EXISTS");
-        //jdbcTemplate.execute("CREATE TABLE customers(" +                "id INTEGER, first_name VARCHAR(255), last_name VARCHAR(255))");
-        String sql = "select * from people";
-        //List<String> list = jdbcTemplate.queryForList(sql,String.class);
-        //list.forEach((e)->log.info("geting"+e));
-
-        log.info("End Query");
-    }
+        //insert to log table
+        List<Object[]> splitLogs = Arrays.asList("a1 2 self test true", "a2 3 self test false").stream()
+                .map(loglist -> loglist.split(" "))
+                .collect(Collectors.toList());
+        splitLogs.forEach(loglist -> log.info(String.format("Inserting customer record for %s %s %s %s %s", loglist[0], loglist[1], loglist[2], loglist[3], loglist[4])));
+        jdbcTemplate.batchUpdate("INSERT INTO logs(id, duration,type,host,alert) VALUES (?,?,?,?,?)", splitLogs);
+        jdbcTemplate.query(
+                "SELECT * FROM logs WHERE type = ?", new Object[] { "self" },
+                (rs, rowNum) -> new LogElement(rs.getString("id"), rs.getInt("duration"), rs.getString("type"), rs.getString("host"), rs.getBoolean("alert"))
+        ).forEach(loglist -> log.info(loglist.toString()));
+        
+    }*/
 }

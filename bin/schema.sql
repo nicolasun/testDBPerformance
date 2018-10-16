@@ -6,6 +6,7 @@ CREATE TABLE people(
 );
 DROP TABLE friends IF EXISTS;
 CREATE TABLE friends(
-    person INTEGER PRIMARY KEY,
-    friend INTEGER PRIMARY KEY
+    person INTEGER,
+    friend INTEGER,
+    PRIMARY KEY(person, friend)
 );
