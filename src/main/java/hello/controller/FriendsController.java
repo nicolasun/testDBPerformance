@@ -22,8 +22,10 @@ public class FriendsController {
 	
 	private String friendsList = "";
 	private String friendTree = "";
+	private String friendTreeByCity = "";
 	@RequestMapping("/friendslist")
     public String friendslist(@RequestParam(value="id", required=true, defaultValue="1") String id) {
+		friendsList = friendTree = friendTreeByCity = "";
 		List<String> friendsListAll =  friendsRepository.getFriendNameList(id);
 		friendsListAll.forEach((e)->{
 			log.info("Friends list + "+e);
@@ -34,7 +36,13 @@ public class FriendsController {
 			log.info("Friends list + "+e);
 			friendTree += e;
 		});
-		return friendsList+" <br/>" + friendTree;
+		
+		List<String> friendsTreeByCity =  friendsRepository.getFriendsTreeByCity(id);
+		friendsTreeByCity.forEach((e)->{
+			log.info("Friends list + "+e);
+			friendTreeByCity += e;
+		});
+		return friendsList+" <br/>" + friendTree + "<br/>" + friendTreeByCity;
 	}
 	
 }

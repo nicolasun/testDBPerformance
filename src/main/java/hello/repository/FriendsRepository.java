@@ -34,4 +34,15 @@ public class FriendsRepository {
 		List<String> friendsTree=  jdbcTemplate.queryForList(sql, String.class);
 		return friendsTree;
 	}
+	
+	public List<String> getFriendsTreeByCity(String id){
+		String sql = "WITH RECURSIVE friendsList (friend_next) AS (" + 
+					 "   VALUES("+id+")" + 
+				     "   UNION" + 
+				     "   SELECT friend FROM friends, friendsList WHERE person = friend_next " + 
+				     "   ) SELECT friend_next FROM friendsList left join people on friendsList.friend_next = people.id order by people.city;";
+		log.info(sql);
+		List<String> friendsTree=  jdbcTemplate.queryForList(sql, String.class);
+		return friendsTree;
+	}
 }
