@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<webflow-project-description>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.9.5.201804160905-CI-B1980]]></pluginVersion>
+	<configs>
+		<config>
+			<file>src/main/java/hello/controller.xml</file>
+			<name><![CDATA[controller]]></name>
+		</config>
+	</configs>
+</webflow-project-description>

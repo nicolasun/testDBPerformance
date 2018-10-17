@@ -1,3 +1,5 @@
+DROP VIEW friends_list IF EXISTS;
+
 DROP TABLE people IF EXISTS;
 CREATE TABLE people(
     id INTEGER PRIMARY KEY,
@@ -10,3 +12,15 @@ CREATE TABLE friends(
     friend INTEGER,
     PRIMARY KEY(person, friend)
 );
+
+CREATE VIEW friends_list AS
+    select 
+    	a.person personID,
+        a.friend friendID,
+        b.name friendName,
+        b.city friendCity
+    from 
+        friends a 
+    left join 
+        people b 
+    on a.friend = b.id;
